@@ -30,7 +30,7 @@ filterCalibrationValues();
 console.log("Part 1: ", calibrationSum1);
 //  Part II, need to filter by printed numbers 
 // (?:one|two|three|four|five|six|seven|eight|nine|\d)
-// Tries: 54something, 51890 (too low)
+// Tries: 54something, 51890 (too low), 54770 (correct!)
 const mapObj = {
     one: '1',
     two: '2',
