@@ -43,6 +43,7 @@ function dayTwoPartOne() {
 console.log(dayTwoPartOne());
 // For day 2 part 2, we need to figure out the minimum needed for each game and then multiply the values together 
 // and finally add all of the powers to get the final answer
+// attempt 1: 59795 correct! 
 function dayTwoPartTwo() {
     // 
     let sum = 0;
