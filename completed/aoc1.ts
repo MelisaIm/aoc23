@@ -1,4 +1,4 @@
-import readDataUtil from './readDataUtil';
+import readDataUtil from '../readDataUtil';
 
 const INPUTFILE = './puzzle1_input.txt';
 const SAMPLEINPUT = './puzzle1_sample.txt';

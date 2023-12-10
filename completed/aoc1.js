@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const readDataUtil_1 = require("./readDataUtil");
+const readDataUtil_1 = require("../readDataUtil");
 const INPUTFILE = './puzzle1_input.txt';
 const SAMPLEINPUT = './puzzle1_sample.txt';
 const SAMPLEINPUT2 = './puzzle1_2_sample.txt';
