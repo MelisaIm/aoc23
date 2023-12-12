@@ -9,7 +9,7 @@ const PUZZLE_THREE_SAMPLE = "./puzzle3_sample.txt";
 // a multi dimensional array and when we find a symbol, we check 
 // all of it's cardinal positions 
 // Each line is a value in the array
-let data = (0, readDataUtil_1.default)(PUZZLE_THREE_SAMPLE);
+let data = (0, readDataUtil_1.default)(PUZZLE_THREE_INPUT);
 // Split each line into corresponding spots 
 data = data.map(line => line.split(""));
 // For first line we look left, right, diagonals down, and down 
@@ -37,71 +37,65 @@ function puzzleThreePartOne() {
                 // find the full number first
                 const [number, lastIndex] = findNumber(line, column);
                 // we need to check the current column and the lastIndex for diagonals
-                adjacentFlag = checkForEachDigit(row, lastIndex, column);
+                adjacentFlag = checkForEachDigit(column, lastIndex, row);
                 column = lastIndex;
-                console.log(adjacentFlag, number);
                 if (adjacentFlag) {
                     partSum += number;
+                    column = lastIndex + 1; // do not add the same number more than once
                 }
             }
         }
     });
     return partSum;
 }
-function checkForEachDigit(rowStart, rowEnd, col) {
-    for (let i = rowStart; i < rowEnd + 1; i++) {
-        const flag = checkCardinals(rowStart, col);
+// Loop through each number in a multi digit number and check if 
+// any symbol is in its cardinal directions 
+// arguments 
+function checkForEachDigit(numStart, numEnd, row) {
+    for (let i = numStart; i < numEnd + 1; i++) {
+        const flag = checkCardinals(i, row);
         if (flag)
             return true;
     }
     return false;
 }
-function checkCardinals(row, col) {
+function checkCardinals(col, row) {
     // check up
     if (row > 0) {
         if (checkForSymbol(data[row - 1][col]))
             return true;
-        console.log("up");
         // check for upper left
         if (col > 0) {
-            console.log("up left");
             if (checkForSymbol(data[row - 1][col - 1]))
                 return true;
         }
         // check for upper right
         if (col < data[row].length - 1) {
-            console.log("up right");
-            if (checkForSymbol(data[row - 1][col[data[row].length - 1]]))
+            if (checkForSymbol(data[row - 1][col + 1]))
                 return true;
         }
     }
     // check left
     if (col > 0) {
-        console.log("left");
         if (checkForSymbol(data[row][col - 1]))
             return true;
     }
     // check right
     if (col < data[row].length - 1) {
-        console.log("right");
         if (checkForSymbol(data[row][col + 1]))
             return true;
     }
     // check down
     if (row < data.length - 1) {
-        console.log("down");
-        if (checkForSymbol(data[row][col]))
+        if (checkForSymbol(data[row + 1][col]))
             return true;
         // check lower right
         if (col < data[row].length - 1) {
-            console.log("down right");
-            console.log("VALUE", data[row + 1][col + 1]);
             if (checkForSymbol(data[row + 1][col + 1]))
                 return true;
         }
         // check lower left
         if (col > 0) {
-            console.log("down left");
             if (checkForSymbol(data[row + 1][col - 1]))
                 return true;
         }
@@ -110,13 +104,17 @@ function checkCardinals(row, col) {
 }
 // not a number and not a period
 function checkForSymbol(val) {
-    if (!parseInt(val)) {
-        console.log("isNaN", val);
-        if (val !== ".") {
-            console.log("is not period?");
+    console.log(val);
+    if (/\d/.test(val)) {
+        if (!/\./.test(val)) {
             return true;
         }
     }
+    // if (!parseInt(val)) {
+    //     if (val !== ".") {
+    //         return true;
+    //     }
+    // }
     return false;
 }
 function findNumber(line, startingIndex) {
@@ -129,4 +127,7 @@ function findNumber(line, startingIndex) {
     return [parseInt(num), lastIndex];
 }
 console.log(puzzleThreePartOne());
+// attempt 1: 555076 (too high!)
+// attempt 2: 501509 try not to add same number multiple times (too low!)
+// attempt 3: 501513 (too low!)
 //# sourceMappingURL=aoc3.js.map
